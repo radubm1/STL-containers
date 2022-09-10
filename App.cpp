@@ -1,10 +1,10 @@
 #include<Student.h>
 
-Student create(string s, int a, map<int, string> m) {
+Student create(string name, int age, map<int, string> mark) {
 	Student inst = Student();
-	inst.age = a;
-	inst.name = s;
-	inst.marks = m;
+	inst.age = age;
+	inst.name = name;
+	inst.marks = mark;
 	return inst;
 }
 
@@ -61,11 +61,47 @@ void save(list<Student> ls) {
 
 }
 
+void import() {
+	Student s = Student();
+	list<Student> ls;
+	list<Student>::iterator it;
+	ifstream data, data1;
+	data.open("C:\\Users\\Radu\\Desktop\\file.dat");
+	data1.open("C:\\Users\\Radu\\Desktop\\file1.dat");
+	string line, field;
+	const char separator = '\n';
+	const char separator1 = '\t';
+	while (getline(data,line,separator)) {
+		stringstream streamData(line);
+		int cnt = 1;
+		while (getline(streamData, field, separator1)) {
+			switch (cnt) {
+			case 2:
+				s.name = field;
+				break;
+			case 3:
+				s.age = stoi(field);
+				cnt = 0;
+				break;
+			default:
+				break;
+			}
+			cnt++;
+		}
+		ls.push_back(s);
+		s = Student();
+	}
+	for (it = ls.begin();it != ls.end();it++)
+		cout << it->age << "\t" << it->name << endl;
+}
+
 int main() {
 
-	save(write());
+	//save(write());
 
-	show(write());
+	//show(write());
+
+	import();
 	
 	return 0;
 }
