@@ -61,7 +61,7 @@ void save(list<Student> ls) {
 
 }
 
-void import() {
+list<Student> import() {
 	Student s = Student();
 	list<Student> ls;
 	list<Student>::iterator it;
@@ -91,17 +91,16 @@ void import() {
 		ls.push_back(s);
 		s = Student();
 	}
-	for (it = ls.begin();it != ls.end();it++)
-		cout << it->age << "\t" << it->name << endl;
+	//for (it = ls.begin();it != ls.end();it++)
+		//cout << it->age << "\t" << it->name << endl;
+	return ls;
 }
 
 int main() {
 
 	//save(write());
 
-	//show(write());
-
-	import();
+	show(import());
 	
 	return 0;
 }
