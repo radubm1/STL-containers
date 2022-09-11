@@ -1,6 +1,6 @@
 #include<Student.h>
 
-Student create(string name, int age, map<int, string> mark) {
+Student create(string name, int age, map<string, int> mark) {
 	Student inst = Student();
 	inst.age = age;
 	inst.name = name;
@@ -9,18 +9,11 @@ Student create(string name, int age, map<int, string> mark) {
 }
 
 list<Student> write() {
-	c.ls.push_back(create("Vasile", 21, { {10, "Math"}, {8,"Chem"} , {9,"Bio"} }));
-	c.ls.push_back(create("Ioana", 19,{ {9, "Math"}, {10,"Chem"}, {8,"Geo"}, {8,"Bio"} }));
-	c.ls.push_back(create("Rares", 20, { {8,"Math"},{9,"Chem"} }));
-	c.ls.push_back(create("Ion", 22, { {8,"Math"},{9,"Chem"} }));
-	c.ls.push_back(create("Matilda", 20, { {8,"Math"},{9,"Chem"} , {10,"Draw"} , {10,"Sport"} }));
-	c.ls.push_back(create("Clotilde", 18, { {8,"Math"},{9,"Chem"} , {8,"Geo"} }));
-	c.ls.push_back(create("Mihai", 20, { {8,"Math"},{9,"Chem"}, {9,"Psych"}, {10,"Lit"} }));
-	c.ls.push_back(create("Gabriel", 24, { {8,"Math"},{9,"Chem"}, {8,"Sport"}, {8,"Lit"}, {8,"Bio"} }));
-	c.ls.push_back(create("Costica", 19, { {8,"Math"} }));
-	c.ls.push_back(create("Matei", 20, { {8,"Math"},{9,"Chem"} }));
+	c.ls.push_back(create("Vasile", 21, { {"Math", 10}, {"Chem", 9} , {"Bio",10} }));
+	c.ls.push_back(create("Ioana", 19,{ {"Math", 9}, {"Chem", 8}, {"Geo", 10}, {"Bio", 8} }));
+	c.ls.push_back(create("Rares", 20, { {"Math", 10},{"Chem", 10} }));
 
-	cout << "You have successfully added 10 records!" << endl;
+	cout << "You have successfully added 3 records!" << endl;
 
 	return c.ls;
 }
@@ -31,8 +24,8 @@ void show(list<Student> ls) {
 		cout << c._i->name << endl;
 		cout << c._i->age << endl;
 		for (c._j = c._i->marks.begin();c._j != c._i->marks.end(); c._j++) {
-			cout << c._j->second << endl;
 			cout << c._j->first << endl;
+			cout << c._j->second << endl;
 		}
 		c._i->marks.clear();
 	}
@@ -48,7 +41,7 @@ void save(list<Student> ls) {
 	for (c._i = ls.begin();c._i != ls.end();c._i++) {
 		x1._out << ++count << "\t" << c._i->name << "\t" <<c._i->age << endl;
 		for (c._j = c._i->marks.begin();c._j != c._i->marks.end(); c._j++) {
-			x2._out << c._j->second << "\t" << c._j->first << "\t" << count << endl;
+			x2._out << c._j->first << "\t" << c._j->second << "\t" << count << endl;
 		}
 	}
 	x1._out.close(); x2._out.close();
@@ -70,14 +63,14 @@ list<Student> import() {
 		x2._in.open(str1);// To do...
 		while(getline(x2._in, x2.line)) {
 			stringstream sData(x2.line);
-			int key=0, mcnt = 0;
-			string val;
+			int val=0, mcnt = 0;
+			string key;
 
-			sData >> val;
 			sData >> key;
+			sData >> val;
 			sData >> mcnt;
 
-			if (cnt==mcnt) s.marks.insert(pair<int,string>(key, val));
+			if (cnt==mcnt) s.marks.insert(pair<string, int>(key, val));
 		}
 		c.ls.push_back(s);
 		s = Student();
@@ -91,7 +84,7 @@ list<Student> import() {
 int main() {
 
 	//save(write());
-	//--show(write());
+	//show(write());
 	show(import());
 	
 	return 0;
