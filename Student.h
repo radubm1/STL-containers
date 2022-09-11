@@ -14,13 +14,13 @@ using namespace std;
 struct Student {
 	string name;
 	int age = 0;
-	map<int, string> marks;
+	map<string, int> marks;
 } s;
 
 struct Collection {
 	list<Student> ls;
 	list<Student>::iterator _i;
-	map<int, string>::iterator _j;
+	map<string, int>::iterator _j;
 } c;
 
 struct IO {
