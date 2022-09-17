@@ -15,13 +15,20 @@ struct Student {
 	string name;
 	int age = 0;
 	map<string, int> marks;
-} s;
-
-struct Collection {
-	list<Student> ls;
-	list<Student>::iterator _i;
-	map<string, int>::iterator _j;
-} c;
+	double avg = 0.0;
+	Student(string _name, int _age, map<string, int> _mark) : name(_name), age(_age), marks(_mark) {
+		int sum = 0, cnt = 0;
+		for (map<string, int>::iterator i = marks.begin(); i != marks.end(); i++)
+		{
+			sum += i->second;cnt++;
+		}
+		avg = static_cast<double>(sum) / cnt;
+	};
+	bool operator <(const Student& studObj) const
+	{
+		return avg < studObj.avg;
+	}
+};
 
 struct IO {
 	ifstream _in;
